@@ -12,7 +12,7 @@ app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: false })) // for parsing application/x-www-form-urlencoded
 
 app.get('/', (req, res) => {
-  res.send("Hello chargemap!")
+  res.send("Hello chargemap 2!")
 })
 
 
