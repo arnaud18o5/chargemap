@@ -6,6 +6,7 @@
   "author": "arnaud avocat gros",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.3",
     "express-session": "^1.17.2",
