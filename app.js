@@ -2,6 +2,7 @@
 import express  from 'express';
 import stationRoute from './routes/stationRoute'
 import authRoute from './routes/authRoute'
+import db from './utils/db';
 import passport from './utils/pass';
 const app = express();
 const port = process.env.PORT || 8080;
@@ -15,6 +16,8 @@ app.get('/', (req, res) => {
   res.send("Hello chargemap 2!")
 })
 
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
+db.on('connected', () => {
+  app.listen(port, () => { console.log(`app listen on port ${port}`); });
+}).on('error', (err) => {
+  console.log(`Connnection error: ${err.message}`);
+})
