@@ -2,7 +2,6 @@
 import express  from 'express';
 import stationRoute from './routes/stationRoute'
 import authRoute from './routes/authRoute'
-import db from './utils/db';
 import passport from './utils/pass';
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,10 +15,4 @@ app.use('/station', stationRoute);/*, passport.authenticate('jwt', {session: fal
 app.use('/auth', authRoute);
 app.get('/', (req, res) => {
   res.send("Hello chargemap!")
-})
-
-db.on('connected', () => {
-  app.listen(port, () => { console.log(`app listen on port ${port}`); });
-}).on('error', (err) => {
-  console.log(`Connnection error: ${err.message}`);
 })
