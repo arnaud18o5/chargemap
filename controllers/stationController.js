@@ -13,8 +13,8 @@ const station_get = async (req, res) => {
 };
 
 const station_list_get = async (req, res) => {
-  res.json(await Stations.find().populate('Connections')); //
-  //res.json(req.query);
+  //res.json(await Stations.find()/*.populate('Connections')*/); //
+  res.json(req.query);
 };
 
 

@@ -1,6 +1,7 @@
 'use strict';
 import passport from 'passport';
 import Strategy from 'passport-local';
+import bcrypt from 'bcrypt';
 import {Strategy as JWTStrategy, ExtractJwt} from 'passport-jwt';
 import {getUserLogin} from '../models/userModel';
 
@@ -22,14 +23,14 @@ passport.deserializeUser(async (user, done) => {
 */
 
 passport.use(
-    new Strategy((username, password, done) => { // the html form must have the same name as input (username, password)
+    new Strategy(async (username, password, done) => { // the html form must have the same name as input (username, password)
         // get user by username (in this case email) from userModel/getUserLogin
         const user = getUserLogin(username);
         if(!user){
-            return done(null, false);
+            return done(null, false, {message:'Wrong crendentials.'});
         }
-        if(password !== user.password){
-            return done(null, false);
+        if(!await bcrypt.compare(password, user.password)){
+            return done(null, false, {message:'Wrong crendentials.'});
         }
         delete user.password; //we don't want the password to travel from server to client
         return done(null,user);
